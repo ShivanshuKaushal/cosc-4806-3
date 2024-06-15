@@ -1,3 +1,4 @@
+
 <?php require_once 'app/views/templates/headerPublic.php'?>
 <main role="main" class="container">
     <div class="page-header" id="banner">
@@ -24,43 +25,31 @@
                 <label for="password">Confirm Password</label>
                 <input required type="password" class="form-control" name="password2">
               </div>
-          <?php
-          if (isset($_SESSION['username_exists']) && $_SESSION['username_exists'] == true) {
-              echo "Username already taken";
-          }
-          else if (isset($_SESSION['password_mismatch']) && $_SESSION['password_mismatch'] == 1) {
-              echo "Passwords do not match";
+            <?php
+            if (isset($_SESSION['username_exists']) && $_SESSION['username_exists'] == true) {
+                echo "Username already taken";
             }
-            else if (isset($_SESSION['password_too_short']) && $_SESSION['password_too_short'] == 1) {
-              echo "Password must be at least 8 characters";
-            }
+            else if (isset($_SESSION['password_mismatch']) && $_SESSION['password_mismatch'] == 1) {
+                echo "Passwords do not match";
+              }
+              else if (isset($_SESSION['password_too_short']) && $_SESSION['password_too_short'] == 1) {
+                echo "Password must be at least 8 characters";
+              }
 
 
-          unset($_SESSION['username_exists']);
-          unset($_SESSION['password_mismatch']);
-          unset($_SESSION['password_too_short']);
-          ?>
+            unset($_SESSION['username_exists']);
+            unset($_SESSION['password_mismatch']);
+            unset($_SESSION['password_too_short']);
+            ?>
+            <br>
             <button type="submit" class="btn btn-primary">Sign up</button>
         </fieldset>
         </form> 
   </div>
 </div>
 <footer>
-    <?php
-    if (isset($_SESSION['username_exists']) && $_SESSION['username_exists'] == true) {
-        echo "Username already taken";
-    }
-    else if (isset($_SESSION['password_mismatch']) && $_SESSION['password_mismatch'] == 1) {
-        echo "Passwords do not match";
-      }
-      else if (isset($_SESSION['password_too_short']) && $_SESSION['password_too_short'] == 1) {
-        echo "Password must be at least 8 characters";
-      }
+    <a href="/login">Already have an account? Log in here.</a>
 
-    unset($_SESSION['username_exists']);
-    unset($_SESSION['password_mismatch']);
-    unset($_SESSION['password_too_short']);
-    ?>
 </footer>
 <br>
 
