@@ -2,31 +2,28 @@
 
 class User {
 
-    public $username;
-    public $password;
-    public $auth = false;
+  public $username;
+  public $password;
+  public $auth = false;
 
-    public function __construct() {
+  public function __construct() {
 
-    }
+  }
 
-    public function test () {
-      $db = db_connect();
-      $statement = $db->prepare("select * from users;");
-      $statement->execute();
-      $rows = $statement->fetch(PDO::FETCH_ASSOC);
-      return $rows;
-    }
+  public function test () {
+    $db = db_connect();
+    $statement = $db->prepare("select * from users;");
+    $statement->execute();
+    $rows = $statement->fetch(PDO::FETCH_ASSOC);
+    return $rows;
+  }
 
-    public function authenticate($username, $password) {
-        /*
-         * if username and password good then
-         * $this->auth = true;
-         */
+  public function authenticate($username, $password) {
+
     $username = strtolower($username);
     $db = db_connect();
-        $statement = $db->prepare("select * from users WHERE username = :username;");
-        $statement->bindValue(':username', $username);
+        $statement = $db->prepare("select * from users WHERE username = :name;");
+        $statement->bindValue(':name', $username);
         $statement->execute();
         $rows = $statement->fetch(PDO::FETCH_ASSOC);
 
@@ -38,15 +35,17 @@ class User {
       die;
     } else {
       if(isset($_SESSION['failedAuth'])) {
-        $_SESSION['failedAuth'] ++; //increment
+        $_SESSION['failedAuth'] ++;
       } else {
         $_SESSION['failedAuth'] = 1;
       }
-      header('Location: /login');
+      header('Location: /login'); 
       die;
     }
-    }
-  public function checkUsernameExists($username) {
+  }
+
+
+  public function check_username_exists($username) {
     $_SESSION['test'] = 'test';
     $db = db_connect();
     $statement = $db->prepare("SELECT username FROM users WHERE username = '$username'");
@@ -55,10 +54,10 @@ class User {
 
 
     if (isset($row) && !empty($row)) {
-      $_SESSION['usernameExists'] = true;
+      $_SESSION['username_exists'] = true;
     }
     else {
-      $_SESSION['usernameExists'] = false;
+      $_SESSION['username_exists'] = false;
     }
     // die;
   }
